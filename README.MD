@@ -10,6 +10,8 @@ We will be researching two programming languages to use on the server, Python an
 
 The server will provide an API to post new and fetch past temperature readings from a local database running on the same SBC allowing for a simple self contained solution. the SBC is expected to be running on a private network.
 
-This repository covers the Java solution, you can find the Python solution <a href="https://https://github.com/Ivovis/week-10-assignment">Here</a>
+This repository covers the Java solution, you can find the Python solution <a href="https://github.com/Ivovis/week-10-assignment">Here</a>
 
 ---
+
+https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html
