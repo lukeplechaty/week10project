@@ -15,3 +15,4 @@ This repository covers the Java solution, you can find the Python solution <a hr
 ---
 
 https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html
+https://www.tutorialspoint.com/sqlite/sqlite_java.htm
