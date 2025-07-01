@@ -3,12 +3,20 @@ package week10project;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 public class RequestHandler implements HttpHandler
 {
+	Main main;
+	RequestHandler(Main main){
+		this.main = main;
+	}
 	public void handle(HttpExchange httpExchange) throws IOException
 	{
 		String response = "Request Received";
@@ -18,7 +26,8 @@ public class RequestHandler implements HttpHandler
 		{
 			if(method.equals("GET"))
 			{
-				response = gson.toJson(new Temps(32,"C"));
+				Map<String, String> pramps = getParamMap(httpExchange.getRequestURI().getQuery());
+				response = gson.toJson(main.db.read(pramps.get("id")));
 			}
 			else if(method.equals("POST"))
 			{
@@ -26,8 +35,8 @@ public class RequestHandler implements HttpHandler
 				int n;
 				String text = "";
 				while((n=is.read())!=-1) text+=(char)n;
-				Temps tempData = gson.fromJson(text,Temps.class);
-				System.out.println(tempData.temp+" "+tempData.type);
+				Temp tempData = gson.fromJson(text,Temp.class);
+				main.db.add(tempData);
 				response = "{\"saved\":true}";
 			}
 			else
@@ -37,7 +46,7 @@ public class RequestHandler implements HttpHandler
 		}
 		catch(Exception e)
 		{
-			System.out.println("An error request");
+			main.window.log("An error request");
 			response = e.toString();
 			e.printStackTrace();
 		}
@@ -46,5 +55,13 @@ public class RequestHandler implements HttpHandler
 		OutputStream outStream = httpExchange.getResponseBody();
 		outStream.write(response.getBytes());
 		outStream.close();
+	}
+	public Map<String, String> getParamMap(String query) {
+	    if (query == null || query.isEmpty()) return Collections.emptyMap();
+	    return Stream.of(query.split("&"))
+	            .filter(s -> !s.isEmpty())
+	            .map(kv -> kv.split("=", 2)) 
+	            .collect(Collectors.toMap(x -> x[0], x-> x[1]));
+
 	}
 }
