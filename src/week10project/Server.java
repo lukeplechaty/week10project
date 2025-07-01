@@ -10,9 +10,12 @@ public class Server implements Runnable
 	Main main;
 	int port = 80;
 	HttpServer server;
-	Server(Main main){
+	
+	Server(Main main)
+	{
 		this.main = main;
 	}
+	
 	public void run()
 	{
 		main.window.log("The server is running.");

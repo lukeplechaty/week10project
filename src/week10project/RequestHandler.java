@@ -14,9 +14,12 @@ import com.sun.net.httpserver.HttpHandler;
 public class RequestHandler implements HttpHandler
 {
 	Main main;
-	RequestHandler(Main main){
+	
+	RequestHandler(Main main)
+	{
 		this.main = main;
 	}
+	
 	public void handle(HttpExchange httpExchange) throws IOException
 	{
 		String response = "Request Received";
@@ -34,8 +37,10 @@ public class RequestHandler implements HttpHandler
 				InputStream is = httpExchange.getRequestBody();
 				int n;
 				String text = "";
-				while((n=is.read())!=-1) text+=(char)n;
-				Temp tempData = gson.fromJson(text,Temp.class);
+				while((n = is.read()) != -1)
+					text += (char)n;
+				Temp tempData = gson.fromJson(text, Temp.class);
+				main.window.log(tempData.toString());
 				main.db.add(tempData);
 				response = "{\"saved\":true}";
 			}
@@ -56,12 +61,11 @@ public class RequestHandler implements HttpHandler
 		outStream.write(response.getBytes());
 		outStream.close();
 	}
-	public Map<String, String> getParamMap(String query) {
-	    if (query == null || query.isEmpty()) return Collections.emptyMap();
-	    return Stream.of(query.split("&"))
-	            .filter(s -> !s.isEmpty())
-	            .map(kv -> kv.split("=", 2)) 
-	            .collect(Collectors.toMap(x -> x[0], x-> x[1]));
-
+	
+	public Map<String, String> getParamMap(String query)
+	{
+		if(query == null || query.isEmpty())
+			return Collections.emptyMap();
+		return Stream.of(query.split("&")).filter(s -> !s.isEmpty()).map(kv -> kv.split("=", 2)).collect(Collectors.toMap(x -> x[0], x -> x[1]));
 	}
 }

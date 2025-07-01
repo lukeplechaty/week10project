@@ -8,28 +8,29 @@ public class DB
 	Main main;
 	Connection connection = null;
 	Statement statement = null;
-	DB(Main main){
+	
+	DB(Main main)
+	{
 		this.main = main;
-		try {
+		try
+		{
 			Class.forName("org.sqlite.JDBC");
 			connection = DriverManager.getConnection("jdbc:sqlite:API.db");
 			main.window.log("Opened database successfully");
-			
 			statement = connection.createStatement();
-			String sql = "CREATE TABLE IF NOT EXISTS temps "+
-			"(id INTEGER PRIMARY KEY AUTOINCREMENT, "+
-			"temp INT NOT NULL, "+
-			"type CHAR(1) NOT NULL, "+
-			"date INT NOT NULL);";
+			String sql = "CREATE TABLE IF NOT EXISTS temps (id INTEGER PRIMARY KEY AUTOINCREMENT, temp INT NOT NULL, type CHAR(1) NOT NULL, date INT NOT NULL);";
 			statement.executeUpdate(sql);
 			statement.close();
 		}
-		catch ( Exception e ) {
+		catch(Exception e)
+		{
 			main.window.log("DB Open Error.");
 			main.window.log(e.getMessage());
 		}
 	}
-	void close() {
+	
+	void close()
+	{
 		try
 		{
 			connection.close();
@@ -41,15 +42,17 @@ public class DB
 			main.window.log(e.getMessage());
 		}
 	}
-	void add(Temp temp) {
-        try
+	
+	void add(Temp temp)
+	{
+		try
 		{
-		statement = connection.createStatement();
-		String sql = "INSERT INTO temps (temp,type,date) "+
-		"VALUES ("+temp.temp+","+temp.type+","+new Date()+");";
-		statement.executeUpdate(sql);
-		statement.close();
-		main.window.log("Added ("+temp.temp+","+temp.type+","+new Date()+")");
+			statement = connection.createStatement();
+			main.window.log(temp.toString());
+			String sql = "INSERT INTO temps (temp,type,date) VALUES (" + temp.temp + ",'" + temp.type + "'," + new Date().getTime() + ");";
+			statement.executeUpdate(sql);
+			statement.close();
+			main.window.log("Added (" + temp.temp + "," + temp.type + "," + new Date().getTime() + ")");
 		}
 		catch(SQLException e)
 		{
@@ -57,19 +60,22 @@ public class DB
 			main.window.log(e.getMessage());
 		}
 	}
-	Temp read(String id){
-        try
+	
+	Temp read(String id)
+	{
+		try
 		{
-        	statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery( "SELECT * FROM temps WHERE id="+id+";" );
-            Temp temp=null;
-            while ( rs.next() ) {
-               temp=new Temp(rs.getInt("temp"),rs.getString("type"));
-            }
-            rs.close();
-            statement.close();
-    		main.window.log("Read ("+temp.toString());
-            return temp;
+			statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery("SELECT * FROM temps WHERE id=" + id + ";");
+			Temp temp = null;
+			while(rs.next())
+			{
+				temp = new Temp(rs.getInt("temp"), rs.getString("type"));
+			}
+			rs.close();
+			statement.close();
+			main.window.log("Read " + temp.toString());
+			return temp;
 		}
 		catch(SQLException e)
 		{
