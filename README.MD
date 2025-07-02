@@ -14,7 +14,7 @@ This repository covers the Java solution, you can find the Python solution <a hr
 
 ---
 
-#### How to use.
+#### How to install and run.
 
 Make sure you have Java V20 or greater you can find it <a href="https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html">Here</a>.
 
@@ -29,3 +29,20 @@ And it is as easy as double clicking the app to run it.
 If that dont work open a console and type in
 
         java -jar week10server.jar
+
+---
+
+#### How to use.
+
+All data is in JSON
+
+To add data POST to /add with
+
+        {
+        	"temp":21
+        	"type";"C"
+        }
+
+To read add data GET from /all
+
+To read last data GET from /last

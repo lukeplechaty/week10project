@@ -1,7 +1,9 @@
 package week10project;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DB
 {
@@ -48,11 +50,10 @@ public class DB
 		try
 		{
 			statement = connection.createStatement();
-			main.window.log(temp.toString());
 			String sql = "INSERT INTO temps (temp,type,date) VALUES (" + temp.temp + ",'" + temp.type + "'," + new Date().getTime() + ");";
 			statement.executeUpdate(sql);
 			statement.close();
-			main.window.log("Added (" + temp.temp + "," + temp.type + "," + new Date().getTime() + ")");
+			main.window.log("Added");
 		}
 		catch(SQLException e)
 		{
@@ -60,26 +61,50 @@ public class DB
 			main.window.log(e.getMessage());
 		}
 	}
-	
-	Temp read(String id)
+
+	Temp readLast()
 	{
 		try
 		{
 			statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM temps WHERE id=" + id + ";");
+			ResultSet rs = statement.executeQuery("SELECT * FROM temps ORDER BY id DESC LIMIT 1;");
 			Temp temp = null;
 			while(rs.next())
 			{
-				temp = new Temp(rs.getInt("temp"), rs.getString("type"));
+				temp = new Temp(rs.getInt("id"), rs.getInt("temp"), rs.getString("type"), rs.getLong("date"));
 			}
 			rs.close();
 			statement.close();
-			main.window.log("Read " + temp.toString());
+			main.window.log("Read last");
 			return temp;
 		}
 		catch(SQLException e)
 		{
-			main.window.log("DB Read Error.");
+			main.window.log("DB Read last Error.");
+			main.window.log(e.getMessage());
+		}
+		return null;
+	}
+	
+	List<Temp> readAll()
+	{
+		try
+		{
+			statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery("SELECT * FROM temps;");
+			List<Temp> temp = new ArrayList<Temp>();
+			while(rs.next())
+			{
+				temp.add(new Temp(rs.getInt("id"), rs.getInt("temp"), rs.getString("type"), rs.getLong("date")));
+			}
+			rs.close();
+			statement.close();
+			main.window.log("Read all");
+			return temp;
+		}
+		catch(SQLException e)
+		{
+			main.window.log("DB Read add Error.");
 			main.window.log(e.getMessage());
 		}
 		return null;
