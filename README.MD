@@ -14,5 +14,20 @@ This repository covers the Java solution, you can find the Python solution <a hr
 
 ---
 
-https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html
-https://www.tutorialspoint.com/sqlite/sqlite_java.htm
+#### How to use.
+
+Make sure you have Java V20 or greater you can find it <a href="https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html">Here</a>.
+
+you can open a console and type vvv to find out what version you have
+
+        java -version
+
+Then download the release found <a href="https://github.com/lukeplechaty/week10project/releases">Here</a>.
+
+And it is as ease as double clicking the app to run it.
+
+If that dont work open a console and type in
+
+        java -jar week10server.jar
+
+it should run
