@@ -43,6 +43,6 @@ To add data POST to /add with
     	"type":"C"
     }
 
-To read add data GET from /all
+To read all data GET from /all
 
 To read last data GET from /last
