@@ -20,7 +20,7 @@ Make sure you have Java V20 or greater you can find it <a href="https://www.orac
 
 you can open a console and type vvv to find out what version you have
 
-        java -version
+    java -version
 
 Then download the release found <a href="https://github.com/lukeplechaty/week10project/releases">Here</a>.
 
@@ -28,7 +28,7 @@ And it is as easy as double clicking the app to run it.
 
 If that dont work open a console and type in
 
-        java -jar week10server.jar
+    java -jar week10server.jar
 
 ---
 
@@ -38,10 +38,10 @@ All data is in JSON
 
 To add data POST to /add with
 
-        {
-        	"temp":21
-        	"type";"C"
-        }
+    {
+    	"temp":21
+    	"type":"C"
+    }
 
 To read add data GET from /all
 
