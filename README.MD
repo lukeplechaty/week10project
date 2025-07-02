@@ -50,8 +50,8 @@ To read last data GET from /last
 You will get this info
 
     {
-    	"id":0				// id in the table
-    	"temp":21			// temperature
-    	"type":"C"			// temperature type i.e. C,F,K
+    	"id":0			// id in the table
+    	"temp":21		// temperature
+    	"type":"C"		// temperature type i.e. C,F,K
     	"date":1234567890	// date in milliseconds
     }
