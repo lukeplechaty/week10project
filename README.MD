@@ -24,10 +24,8 @@ you can open a console and type vvv to find out what version you have
 
 Then download the release found <a href="https://github.com/lukeplechaty/week10project/releases">Here</a>.
 
-And it is as ease as double clicking the app to run it.
+And it is as easy as double clicking the app to run it.
 
 If that dont work open a console and type in
 
         java -jar week10server.jar
-
-it should run
