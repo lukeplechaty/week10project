@@ -39,8 +39,8 @@ All data is in JSON
 To add data POST to /add with
 
     {
-    	"temp":21
-    	"type":"C"
+    	"temp":21		// temperature value
+    	"type":"C"		// temperature type i.e. C,F,K
     }
 
 To read all data GET from /all
@@ -51,7 +51,7 @@ You will get this info
 
     {
     	"id":0			// id in the table
-    	"temp":21		// temperature
+    	"temp":21		// temperature value
     	"type":"C"		// temperature type i.e. C,F,K
     	"date":1234567890	// date in milliseconds
     }
