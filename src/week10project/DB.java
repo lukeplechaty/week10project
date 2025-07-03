@@ -7,9 +7,9 @@ import java.util.List;
 
 public class DB
 {
-	Main main;
-	Connection connection = null;
-	Statement statement = null;
+	private Main main;
+	private Connection connection = null;
+	private Statement statement = null;
 	
 	DB(Main main)
 	{
@@ -18,7 +18,7 @@ public class DB
 		{
 			Class.forName("org.sqlite.JDBC");
 			connection = DriverManager.getConnection("jdbc:sqlite:API.db");
-			main.window.log("Opened database successfully");
+			main.log("Opened database successfully");
 			statement = connection.createStatement();
 			String sql = "CREATE TABLE IF NOT EXISTS temps (id INTEGER PRIMARY KEY AUTOINCREMENT, temp INT NOT NULL, type CHAR(1) NOT NULL, date INT NOT NULL);";
 			statement.executeUpdate(sql);
@@ -26,43 +26,40 @@ public class DB
 		}
 		catch(Exception e)
 		{
-			main.window.log("DB Open Error.");
-			main.window.log(e.getMessage());
+			main.log("DB Open Error: "+e.getMessage());
 		}
 	}
 	
-	void close()
+	public void close()
 	{
 		try
 		{
 			connection.close();
-			main.window.log("DB Closed.");
+			main.log("DB Closed.");
 		}
 		catch(SQLException e)
 		{
-			main.window.log("DB Close Error.");
-			main.window.log(e.getMessage());
+			main.log("DB Close Error: "+e.getMessage());
 		}
 	}
 	
-	void add(Temp temp)
+	public void add(Temp temp)
 	{
 		try
 		{
 			statement = connection.createStatement();
-			String sql = "INSERT INTO temps (temp,type,date) VALUES (" + temp.temp + ",'" + temp.type + "'," + new Date().getTime() + ");";
+			String sql = "INSERT INTO temps (temp,type,date) VALUES (" + temp.getTemp() + ",'" + temp.getType() + "'," + new Date().getTime() + ");";
 			statement.executeUpdate(sql);
 			statement.close();
-			main.window.log("Added");
+			main.log("Added");
 		}
 		catch(SQLException e)
 		{
-			main.window.log("DB Add Error.");
-			main.window.log(e.getMessage());
+			main.log("DB Add Error: "+e.getMessage());
 		}
 	}
 
-	Temp readLast()
+	public Temp readLast()
 	{
 		try
 		{
@@ -75,18 +72,17 @@ public class DB
 			}
 			rs.close();
 			statement.close();
-			main.window.log("Read last");
+			main.log("Read last");
 			return temp;
 		}
 		catch(SQLException e)
 		{
-			main.window.log("DB Read last Error.");
-			main.window.log(e.getMessage());
+			main.log("DB Read last Error: "+e.getMessage());
 		}
 		return null;
 	}
 	
-	List<Temp> readAll()
+	public List<Temp> readAll()
 	{
 		try
 		{
@@ -99,13 +95,12 @@ public class DB
 			}
 			rs.close();
 			statement.close();
-			main.window.log("Read all");
+			main.log("Read all");
 			return temp;
 		}
 		catch(SQLException e)
 		{
-			main.window.log("DB Read add Error.");
-			main.window.log(e.getMessage());
+			main.log("DB Read add Error: "+e.getMessage());
 		}
 		return null;
 	}

@@ -7,9 +7,9 @@ import com.sun.net.httpserver.HttpServer;
 
 public class Server implements Runnable
 {
-	Main main;
-	int port;
-	HttpServer server;
+	private Main main;
+	private int port;
+	private HttpServer server;
 	
 	Server(Main main, int port)
 	{
@@ -19,7 +19,7 @@ public class Server implements Runnable
 	
 	public void run()
 	{
-		main.window.log("The server is running.");
+		main.log("The server is running.");
 		try
 		{
 			server = HttpServer.create(new InetSocketAddress(port), 0);
@@ -27,12 +27,12 @@ public class Server implements Runnable
 			ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor)Executors.newCachedThreadPool();
 			server.setExecutor(threadPoolExecutor);
 			server.start();
-			main.window.log("Server started on port " + port + ".");
+			main.log("Server started on port " + port + ".");
 		}
 		catch(Exception e)
 		{
-			main.window.log("An Exception was caught.");
-			main.window.log(e.getMessage());
+			main.log("An Exception was caught.");
+			main.log(e.getMessage());
 		}
 	}
 }

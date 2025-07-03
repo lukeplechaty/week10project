@@ -1,10 +1,10 @@
 package week10project;
 public class Temp
 {
-	int id;
-	int temp;
-	String type;
-	long date;
+	private int id;
+	private int temp;
+	private String type;
+	private long date;
 	
 	Temp(int id,int temp, String type, long date)
 	{
@@ -12,6 +12,26 @@ public class Temp
 		this.temp = temp;
 		this.type = type;
 		this.date =date;
+	}
+	
+	public int getId()
+	{
+		return id;
+	}
+	
+	public int getTemp()
+	{
+		return temp;
+	}
+	
+	public String getType()
+	{
+		return type;
+	}
+	
+	public long getDate()
+	{
+		return date;
 	}
 	
 	public String toString()
