@@ -45,7 +45,7 @@ public class PortWindow extends JFrame
 			}
 		});
 		// port text box
-		JTextField portBox = new JTextField("80");
+		JTextField portBox = new JTextField("8080");
 		add(portBox, BorderLayout.CENTER);
 		// button
 		JButton button = new JButton("OK");

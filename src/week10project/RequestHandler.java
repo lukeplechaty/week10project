@@ -24,10 +24,35 @@ public class RequestHandler implements HttpHandler
 		Gson gson = new Gson();
 		try
 		{
-			if(path.startsWith("/last") && method.equals("GET"))
+			if(path.startsWith("/") && method.equals("GET"))
+			{
+				response = "<html>\n<body>\n"
+				+ "<p style=\"white-space: pre-line; white-space: pre-wrap;\">To add data POST to /add with\n"
+				+ "{\n"
+				+ "\t\"temp\":21\t\t\t// temperature value\n"
+				+ "\t\"type\":\"C\"\t\t\t// temperature type i.e. C,F,K\n"
+				+ "}\n"
+				+ "To read all data GET from /all\n"
+				+ "To read last data GET from /last\n"
+				+ "You will get this info\n"
+				+ "{\n"
+				+ "\t\"id\":0\t\t\t\t// id in the table\n"
+				+ "\t\"temp\":21\t\t\t// temperature value\n"
+				+ "\t\"type\":\"C\"\t\t\t// temperature type i.e. C,F,K\n"
+				+ "\t\"date\":1234567890\t// date in milliseconds\n"
+				+ "}\n"
+				+ "</p>\n</body>\n</html>";
+			}
+			else if(path.startsWith("/last") && method.equals("GET"))
+			{
 				response = gson.toJson(main.db.readLast());
+				httpExchange.getResponseHeaders().set("Content-Type", "application/json");
+			}
 			else if(path.startsWith("/all") && method.equals("GET"))
+			{
 				response = gson.toJson(main.db.readAll());
+				httpExchange.getResponseHeaders().set("Content-Type", "application/json");
+			}
 			else if(path.startsWith("/add") && method.equals("POST"))
 			{
 				InputStream is = httpExchange.getRequestBody();
@@ -38,6 +63,7 @@ public class RequestHandler implements HttpHandler
 				Temp tempData = gson.fromJson(text, Temp.class);
 				main.db.add(tempData);
 				response = "{\"saved\":true}";
+				httpExchange.getResponseHeaders().set("Content-Type", "application/json");
 			}
 			else
 				throw new Exception("Not Valid Request Method");
@@ -48,7 +74,6 @@ public class RequestHandler implements HttpHandler
 			response = e.toString();
 			e.printStackTrace();
 		}
-		httpExchange.getResponseHeaders().set("Content-Type", "application/json");
 		httpExchange.sendResponseHeaders(200, response.length());
 		OutputStream outStream = httpExchange.getResponseBody();
 		outStream.write(response.getBytes());
