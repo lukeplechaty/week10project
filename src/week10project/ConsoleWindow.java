@@ -15,12 +15,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.DefaultCaret;
 
-public class Window extends JFrame
+public class ConsoleWindow extends JFrame
 {
 	Main main;
 	private JTextArea logArea = new JTextArea(20, 30);
 	
-	public Window(Main main)
+	public ConsoleWindow(Main main)
 	{
 		this.main = main;
 		initGUI();

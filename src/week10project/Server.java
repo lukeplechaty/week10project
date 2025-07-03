@@ -8,12 +8,13 @@ import com.sun.net.httpserver.HttpServer;
 public class Server implements Runnable
 {
 	Main main;
-	int port = 80;
+	int port;
 	HttpServer server;
 	
-	Server(Main main)
+	Server(Main main, int port)
 	{
 		this.main = main;
+		this.port = port;
 	}
 	
 	public void run()

@@ -1,19 +1,24 @@
 package week10project;
 public class Main
 {
-	Window window;
+	ConsoleWindow window;
 	DB db;
 	Server server;
 	
 	public static void main(String[] args)
 	{
-		new Main().start();
+		new Main().portSet();
 	}
 	
-	void start()
+	void portSet()
 	{
-		server = new Server(this);
-		window = new Window(this);
+		new PortWindow(this);
+	}
+	
+	void start(int port)
+	{
+		server = new Server(this, port);
+		window = new ConsoleWindow(this);
 		db = new DB(this);
 	}
 }
