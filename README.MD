@@ -41,7 +41,7 @@ To add data POST to /add with
     {
     	"temp":21,		// temperature value
     	"type":"C",		// temperature type i.e. C,F,K
-    	"senser":"sen1"	// senser name
+    	"senser":"sen1"		// senser name
     }
 
 To read all data GET from /all
