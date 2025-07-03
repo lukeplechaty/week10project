@@ -4,13 +4,15 @@ public class Temp
 	private int id;
 	private int temp;
 	private String type;
+	private String senser;
 	private long date;
 	
-	Temp(int id,int temp, String type, long date)
+	Temp(int id,int temp, String type, String senser, long date)
 	{
 		this.id = id;
 		this.temp = temp;
 		this.type = type;
+		this.senser = senser;
 		this.date =date;
 	}
 	
@@ -23,10 +25,15 @@ public class Temp
 	{
 		return temp;
 	}
-	
+
 	public String getType()
 	{
 		return type;
+	}
+	
+	public String getSenser()
+	{
+		return senser;
 	}
 	
 	public long getDate()

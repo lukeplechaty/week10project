@@ -20,7 +20,7 @@ public class DB
 			connection = DriverManager.getConnection("jdbc:sqlite:API.db");
 			main.log("Opened database successfully");
 			statement = connection.createStatement();
-			String sql = "CREATE TABLE IF NOT EXISTS temps (id INTEGER PRIMARY KEY AUTOINCREMENT, temp INT NOT NULL, type CHAR(1) NOT NULL, date INT NOT NULL);";
+			String sql = "CREATE TABLE IF NOT EXISTS temps (id INTEGER PRIMARY KEY AUTOINCREMENT, temp INT NOT NULL, type CHAR(1) NOT NULL, senser TEXT NOT NULL, date INT NOT NULL);";
 			statement.executeUpdate(sql);
 			statement.close();
 		}
@@ -48,7 +48,7 @@ public class DB
 		try
 		{
 			statement = connection.createStatement();
-			String sql = "INSERT INTO temps (temp,type,date) VALUES (" + temp.getTemp() + ",'" + temp.getType() + "'," + new Date().getTime() + ");";
+			String sql = "INSERT INTO temps (temp,type,senser,date) VALUES (" + temp.getTemp() + ",'" + temp.getType() + "','" + temp.getSenser() + "'," + new Date().getTime() + ");";
 			statement.executeUpdate(sql);
 			statement.close();
 			main.log("Added");
@@ -68,7 +68,7 @@ public class DB
 			Temp temp = null;
 			while(rs.next())
 			{
-				temp = new Temp(rs.getInt("id"), rs.getInt("temp"), rs.getString("type"), rs.getLong("date"));
+				temp = new Temp(rs.getInt("id"), rs.getInt("temp"), rs.getString("type"), rs.getString("senser"), rs.getLong("date"));
 			}
 			rs.close();
 			statement.close();
@@ -91,7 +91,7 @@ public class DB
 			List<Temp> temp = new ArrayList<Temp>();
 			while(rs.next())
 			{
-				temp.add(new Temp(rs.getInt("id"), rs.getInt("temp"), rs.getString("type"), rs.getLong("date")));
+				temp.add(new Temp(rs.getInt("id"), rs.getInt("temp"), rs.getString("type"), rs.getString("senser"), rs.getLong("date")));
 			}
 			rs.close();
 			statement.close();
